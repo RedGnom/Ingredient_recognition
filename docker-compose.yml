@@ -1,0 +1,25 @@
+services:
+  roboflow-inference:
+    image: roboflow/roboflow-inference-server-gpu
+    runtime: nvidia 
+    ports:
+      - "9001:9001"
+    environment:
+      - DEVICE=cuda
+    networks:
+      - roboflow_net
+
+  bot:
+    build: .
+    environment:
+      - SERVER_URL=http://roboflow-inference:9001  
+      - API_ROBOFLOW=${API_ROBOFLOW}
+      - BOT_TOKEN=${BOT_TOKEN}
+    networks:
+      - roboflow_net
+    depends_on:
+      - roboflow-inference
+
+networks:
+  roboflow_net:
+    driver: bridge

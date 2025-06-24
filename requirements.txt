@@ -1,0 +1,5 @@
+python-dotenv
+pyTelegramBotAPI
+inference-sdk
+requests
+beautifulsoup4
